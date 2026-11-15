@@ -1,0 +1,132 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Catalog apparel, bag, footwear, or timepiece item managed by store admins.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_-]+$" },
+        "name": { "type": "string", "minLength": 2, "maxLength": 120 },
+        "category": { "type": "string", "enum": ["Women", "Men", "Bag", "Shoes", "Watches"] },
+        "pricePkr": { "type": "number" },
+        "stock": { "type": "number" },
+        "color": { "type": "string", "minLength": 2, "maxLength": 60 },
+        "colorHex": { "type": "string", "minLength": 4, "maxLength": 20 },
+        "material": { "type": "string", "minLength": 2, "maxLength": 120 },
+        "description": { "type": "string", "minLength": 5, "maxLength": 1000 },
+        "image": { "type": "string", "minLength": 1, "maxLength": 1000 },
+        "tag": { "type": "string", "maxLength": 40 },
+        "featuredRank": { "type": "number" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "name", "category", "pricePkr", "stock", "color", "colorHex", "material", "description", "image", "featuredRank", "updatedAt"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "Customer product review without sensitive PII.",
+      "type": "object",
+      "properties": {
+        "productId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_-]+$" },
+        "authorUid": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "author": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "area": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "rating": { "type": "number" },
+        "comment": { "type": "string", "minLength": 2, "maxLength": 600 },
+        "date": { "type": "string", "minLength": 3, "maxLength": 30 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["productId", "authorUid", "author", "area", "rating", "comment", "date", "createdAt"]
+    },
+    "UserPreference": {
+      "title": "UserPreference",
+      "description": "Customer wishlist and non-PII preferences.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "displayName": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "wishlistIds": { "type": "array" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "displayName", "wishlistIds", "updatedAt"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer checkout order with Karachi delivery zone and payment status.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "orderNumber": { "type": "string", "minLength": 3, "maxLength": 32 },
+        "customerName": { "type": "string", "minLength": 2, "maxLength": 100 },
+        "email": { "type": "string", "minLength": 3, "maxLength": 160 },
+        "phone": { "type": "string", "minLength": 6, "maxLength": 30 },
+        "zoneLabel": { "type": "string", "minLength": 2, "maxLength": 120 },
+        "address": { "type": "string", "minLength": 4, "maxLength": 300 },
+        "paymentMethod": { "type": "string", "enum": ["Cash on Delivery", "JazzCash", "Easypaisa", "Card"] },
+        "transactionId": { "type": "string", "maxLength": 80 },
+        "promoCode": { "type": "string", "maxLength": 40 },
+        "discountPkr": { "type": "number" },
+        "subtotalPkr": { "type": "number" },
+        "shippingPkr": { "type": "number" },
+        "totalPkr": { "type": "number" },
+        "status": { "type": "string", "enum": ["Pending", "Packed", "Out for Delivery", "Delivered", "Cancelled"] },
+        "items": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "orderNumber", "customerName", "email", "phone", "zoneLabel", "address", "paymentMethod", "discountPkr", "subtotalPkr", "shippingPkr", "totalPkr", "status", "items", "createdAt", "updatedAt"]
+    },
+    "ContactMessage": {
+      "title": "ContactMessage",
+      "description": "Customer inquiry submitted from the Contact page.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "name": { "type": "string", "minLength": 2, "maxLength": 100 },
+        "email": { "type": "string", "minLength": 3, "maxLength": 160 },
+        "topic": { "type": "string", "minLength": 2, "maxLength": 100 },
+        "orderNumber": { "type": "string", "maxLength": 40 },
+        "message": { "type": "string", "minLength": 4, "maxLength": 1500 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "name", "email", "topic", "message", "createdAt"]
+    },
+    "NewsletterSubscriber": {
+      "title": "NewsletterSubscriber",
+      "description": "Verified customer newsletter subscription for seasonal capsule alerts.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "email": { "type": "string", "minLength": 3, "maxLength": 160 },
+        "source": { "type": "string", "minLength": 2, "maxLength": 40 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "email", "source", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": { "$ref": "#/entities/Product" },
+      "description": "Publicly readable catalog products; writable exclusively by store admins."
+    },
+    "/reviews/{reviewId}": {
+      "schema": { "$ref": "#/entities/Review" },
+      "description": "Publicly readable product reviews; verified users may create and delete their own reviews."
+    },
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserPreference" },
+      "description": "Owner-isolated user wishlist and display preferences."
+    },
+    "/orders/{orderId}": {
+      "schema": { "$ref": "#/entities/Order" },
+      "description": "Private customer orders readable by the order owner or store admins; status managed by admins."
+    },
+    "/contactMessages/{messageId}": {
+      "schema": { "$ref": "#/entities/ContactMessage" },
+      "description": "Customer contact inquiries created by verified users and readable by store admins."
+    },
+    "/newsletterSubscribers/{subscriberId}": {
+      "schema": { "$ref": "#/entities/NewsletterSubscriber" },
+      "description": "Customer newsletter subscriptions created by verified users and readable by the owner or store admins."
+    }
+  }
+}

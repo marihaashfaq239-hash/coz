@@ -1,0 +1,6 @@
+{
+  "name": "COZA STORE — Contemporary Fashion & Essentials",
+  "description": "Minimalist contemporary apparel, footwear, bags, and timepieces storefront with live filtering, quick view, wishlist, and checkout.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
